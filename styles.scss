@@ -1,0 +1,127 @@
+//Colores
+$primary-color: #16325B;
+$secondary-color: #227B94;
+$text-color: #FFFFFF;
+$button-color: #78B7D0;
+
+//Tipografia
+$font-family: 'Helvetica, Arial, sans-serif, Roboto, Rounded Mplus 1c Bold';
+$heading-size: 2.5rem;
+$text-size: 1rem;
+
+//tamanio logo
+$ancho-logo: 5vw;
+$alto-logo: 5vw;
+
+$content-heigth: 80vh;
+$content-width: 100vw;
+
+//Botones reutilizables
+//mixin para aplicar estilos comunes a los botones, como el color de fondo, el borde redondeado y las transiciones
+@mixin button($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken($bg-color, 10%);
+    }
+}
+
+
+
+//Estructura de columnas
+//un mixin para establecer un sistema de columnas adaptativo
+@mixin column($span) {
+    width: percentage(12 / $span);
+    float: left;
+    padding: 15px;
+}
+
+body{
+    width: $content-width;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    width: auto;
+    
+    .logo{
+        width: $ancho-logo;
+        img {
+            width: 100%;
+            height: $alto-logo;
+        }
+    }
+  
+    nav {
+      ul {
+        list-style: none;
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 10px;
+      }
+  
+      li {
+        margin-left: 20px;
+  
+        a {
+          text-decoration: none;
+          color: $primary-color;
+  
+          &:hover {
+            color: darken($primary-color, 15%);
+          }
+        }
+      }
+    }
+  }
+  
+.content{
+    
+    height: $content-heigth;
+    width: auto;
+
+    h1 {
+        font-family: $font-family; /* Fuente moderna */
+        font-size: 3rem; /* Tamaño grande */
+        font-weight: 700; /* Negrita */
+        text-align: center; /* Centrado */
+        color: $primary-color; /* Color primario */        
+        
+        text-transform: uppercase; /* Texto en mayúsculas */
+        background: linear-gradient(90deg, #227B94, #78B7D0); /* Degradado como fondo */
+        -webkit-background-clip: text; /* Aplica el degradado solo al texto */
+        -webkit-text-fill-color: transparent; /* Hace transparente el relleno del texto */
+        padding: 10px; /* Espaciado interno */
+        
+      }
+
+
+    button{
+        @include button(rgb(45, 119, 161),rgb(59, 59, 59))
+    }
+}
+
+
+//Pie de pagina
+footer {
+    background-color: rgb(59, 59, 59);
+    color: white;
+    text-align: center;
+    padding: 0px 0;
+    height: 10vh;
+    width: auto;
+    
+    p {
+      margin: 0;
+      font-size: $text-size;
+    }
+  }
