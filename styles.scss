@@ -1,127 +1,181 @@
-//Colores
+
+//colores
 $primary-color: #16325B;
 $secondary-color: #227B94;
 $text-color: #FFFFFF;
 $button-color: #78B7D0;
 
-//Tipografia
+// Tipografía
 $font-family: 'Helvetica, Arial, sans-serif, Roboto, Rounded Mplus 1c Bold';
 $heading-size: 2.5rem;
 $text-size: 1rem;
 
-//tamanio logo
+// Tamaño logo
 $ancho-logo: 5vw;
 $alto-logo: 5vw;
 
+//content
 $content-heigth: 80vh;
 $content-width: 100vw;
+$margin-content: 2%;
 
-//Botones reutilizables
-//mixin para aplicar estilos comunes a los botones, como el color de fondo, el borde redondeado y las transiciones
+// Botones reutilizables
+// mixin para aplicar estilos comunes a los botones, como el color de fondo, el borde redondeado y las transiciones
 @mixin button($bg-color, $text-color) {
-    background-color: $bg-color;
-    color: $text-color;
-    padding: 10px 20px;
-    border-radius: 50px;
-    transition: background-color 0.3s ease;
+  background-color: $bg-color;
+  color: $text-color;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
 
-    &:hover {
-        background-color: darken($bg-color, 10%);
-    }
+  &:hover {
+    background-color: darken($bg-color, 10%);
+  }
 }
 
+//Encabezado para extender al resto de headings
+//Es como una funcion para no repetir codigo de mas
+.heading {
+  font-family: $font-family;
+  font-weight: 700;
+  color: $primary-color;
+  text-transform: uppercase;
+  text-align: center;
+}
 
-
-//Estructura de columnas
-//un mixin para establecer un sistema de columnas adaptativo
+// Estructura de columnas
+// mixin para establecer un sistema de columnas adaptativo
 @mixin column($span) {
-    width: percentage(12 / $span);
-    float: left;
-    padding: 15px;
+  width: percentage(12 / $span);
+  float: left;
+  padding: 15px;
 }
 
-body{
-    width: $content-width;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: $content-width;
 }
 
 header {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    width: auto;
-    
-    .logo{
-        width: $ancho-logo;
-        img {
-            width: 100%;
-            height: $alto-logo;
-        }
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  width: auto;
+  background-color: $secondary-color;
+  box-shadow: 5px 0 5px 3px grey;
+
+  .logo {
+    width: $ancho-logo;
+
+    img {
+      width: 100%;
+      height: $alto-logo;
     }
-  
-    nav {
-      ul {
-        list-style: none;
-        display: flex;
-        justify-content: flex-start;
-        margin-left: 10px;
-      }
-  
-      li {
-        margin-left: 20px;
-  
-        a {
-          text-decoration: none;
-          color: $primary-color;
-  
-          &:hover {
-            color: darken($primary-color, 15%);
-          }
+  }
+
+  nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: flex-end;
+      margin-left: auto;
+      padding: 1em;
+    }
+
+    li {
+      margin-left: 20px;
+
+      a {
+        text-decoration: none;
+        color: $text-color;
+
+        &:hover {
+          color: darken($primary-color, 15%);
         }
       }
     }
   }
-  
-.content{
-    
-    height: $content-heigth;
-    width: auto;
-
-    h1 {
-        font-family: $font-family; /* Fuente moderna */
-        font-size: 3rem; /* Tamaño grande */
-        font-weight: 700; /* Negrita */
-        text-align: center; /* Centrado */
-        color: $primary-color; /* Color primario */        
-        
-        text-transform: uppercase; /* Texto en mayúsculas */
-        background: linear-gradient(90deg, #227B94, #78B7D0); /* Degradado como fondo */
-        -webkit-background-clip: text; /* Aplica el degradado solo al texto */
-        -webkit-text-fill-color: transparent; /* Hace transparente el relleno del texto */
-        padding: 10px; /* Espaciado interno */
-        
-      }
-
-
-    button{
-        @include button(rgb(45, 119, 161),rgb(59, 59, 59))
-    }
 }
 
 
-//Pie de pagina
-footer {
-    background-color: rgb(59, 59, 59);
-    color: white;
-    text-align: center;
-    padding: 0px 0;
-    height: 10vh;
-    width: auto;
-    
-    p {
-      margin: 0;
-      font-size: $text-size;
+
+.content {
+  flex: 1;
+  text-align: center;
+  margin-top: $margin-content;
+  margin-bottom: $margin-content;
+  padding: 20px;
+
+  h1 {
+    @extend .heading;
+    font-size: 3rem;
+    padding: 10px;
+  }
+
+  button {
+    @include button(lighten($secondary-color, 10%), $primary-color);
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+
+  .services {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 20px;
+    margin: auto;
+    flex-wrap: wrap;
+
+    .service {
+      @include column(3);
+      margin: 20px;
+      text-align: center;
+      background-color: lighten($secondary-color, 10%);
+      border-radius: 20px;
+      max-width: 300px;
+      box-shadow: 5px 5px 5px 5px grey;
+      img {
+        width: 60px;
+        height: 60px;
+      }
+
+      h2 {
+        @extend .heading;
+        font-size: $heading-size;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: $text-size;
+        color: darken($primary-color, 10%);
+      }
     }
   }
+}
+
+
+// Pie de página
+footer {
+  background-color: darken($primary-color, 10%);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  height: 10vh;
+  width: 100%;
+
+  p {
+    margin: 0;
+    font-size: $text-size;
+  }
+}
